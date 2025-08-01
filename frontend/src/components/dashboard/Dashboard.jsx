@@ -1,7 +1,7 @@
 import React, { useEffect, useState }from 'react';
 import { DialogPanel, DialogTitle, Description, Dialog } from '@headlessui/react';
 import './Dashboard.css';
-import { ADD_PRODUCT_API_URL, PRODUCT_API_URL } from '../../constants/constants';
+import { PRODUCT_API_URL } from '../../constants/constants';
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -25,7 +25,7 @@ const Dashboard = () => {
 
   const handleAddProduct = async () => {
     try {
-      const resp = await fetch(ADD_PRODUCT_API_URL, {
+      const resp = await fetch(PRODUCT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({ name: productName, price :productPrice})
