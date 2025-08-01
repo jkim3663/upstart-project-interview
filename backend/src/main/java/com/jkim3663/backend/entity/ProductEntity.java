@@ -28,6 +28,4 @@ public class ProductEntity {
     @Column(name = "CREATED_AT")
     private Timestamp createdAt = Timestamp.from(Instant.now());
 
-
-
 }
