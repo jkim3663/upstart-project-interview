@@ -37,3 +37,23 @@
 .proudct-table table, th, td {
       border: 1px solid black; /* 1px solid black border */
 }
+
+.add-new-product {
+    background: #fff;
+}
+
+.product-form {
+    background: #fff;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    color: #000000;
+    font-size: 18px;
+}
+
+.product-form input {
+    background: #fff;
+    color: #000;
+    padding: 8px;
+    margin-bottom: 10px;
+}

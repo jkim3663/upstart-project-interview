@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -14,7 +15,7 @@ import java.sql.Timestamp;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 
@@ -25,7 +26,7 @@ public class ProductEntity {
     private BigDecimal price;
 
     @Column(name = "CREATED_AT")
-    private Timestamp createdAt;
+    private Timestamp createdAt = Timestamp.from(Instant.now());
 
 
 

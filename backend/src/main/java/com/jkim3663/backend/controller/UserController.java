@@ -19,7 +19,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping(value = "/names")
+    @GetMapping("/names")
     public ResponseEntity<List<String>> getAllUserNames() {
         return new ResponseEntity<>(userService.getAllUserNames(), HttpStatus.OK);
     }

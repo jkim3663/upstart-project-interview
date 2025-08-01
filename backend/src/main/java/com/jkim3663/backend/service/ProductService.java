@@ -1,27 +1,15 @@
 package com.jkim3663.backend.service;
 
-import com.jkim3663.backend.dto.ProductDTO;
-import com.jkim3663.backend.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.jkim3663.backend.dto.ProductRequestDTO;
+import com.jkim3663.backend.dto.ProductResponseDTO;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Service
-@RequiredArgsConstructor
-public class ProductService {
+public interface ProductService {
 
-    private final ProductRepository productRepository;
+    List<ProductResponseDTO> getAllProducts();
 
-    public List<ProductDTO> getAllProducts() {
-        return productRepository.findAll().stream()
-                .map(e -> {
-                    ProductDTO productDTO = new ProductDTO();
-                    productDTO.setName(e.getName());
-                    productDTO.setPrice(e.getPrice().toString());
-                    productDTO.setCreatedAt(e.getCreatedAt().toString());
-                    return productDTO;
-                }).collect(Collectors.toList());
-    }
+    boolean isValidProduct(ProductRequestDTO productRequestDTO);
+
+    void addNewProduct(ProductRequestDTO productRequestDTO);
 }
