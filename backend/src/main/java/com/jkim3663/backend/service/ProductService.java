@@ -12,4 +12,6 @@ public interface ProductService {
     boolean isValidProduct(ProductRequestDTO productRequestDTO);
 
     void addNewProduct(ProductRequestDTO productRequestDTO);
+
+    void deleteProductById(Integer id);
 }

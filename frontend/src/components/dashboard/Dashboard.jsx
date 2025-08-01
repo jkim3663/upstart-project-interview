@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
 
   const fetchAllProducts = async ()=> {
     try {
@@ -39,6 +40,18 @@ const Dashboard = () => {
     }
   };
 
+  const handleDeleteProduct = async (id) => {
+    try {
+      const resp = await fetch(`${PRODUCT_API_URL}/${id}`, {
+        method: 'DELETE',
+      });
+      setDeleteOpen(false);
+      fetchAllProducts();
+    } catch (error) {
+      console.error('Error deleting product: ', error);
+    }
+  };
+
   useEffect(() => {
     fetchAllProducts();
   }, []);
@@ -61,11 +74,18 @@ const Dashboard = () => {
             </thead>
             <tbody>
                 {products.map((product, idx) => (
-                  <tr key={idx}>
+                  <tr key={product.id}>
                     <td>{product.name}</td>
                     <td>{product.price}</td>
                     <td>{product.createdAt}</td>
-                    <td><button>Delete</button></td>
+                    <td>
+                      <button onClick={() => {
+                        setProductIdToDelete(product.id);
+                        setDeleteOpen(true);
+                      }}>
+                        Delete
+                        </button>
+                    </td>
                   </tr>
                 ))}
             </tbody>
@@ -95,8 +115,21 @@ const Dashboard = () => {
                 <Description>This will submit a new product to system</Description>
                 <p>Are you sure you want to submit a new product?</p>
                 <div className="flex gap-4">
-                  <button onClick={handleAddProduct}>Submit</button>
+                  <button onClick={() => handleAddProduct()}>Submit</button>
                   <button onClick={() => setSubmitOpen(false)}>Cancel</button>
+                </div>
+              </DialogPanel>
+            </div>
+      </Dialog>
+      <Dialog open={isDeleteOpen} onClose={() => setDeleteOpen(false)} className="relative z-50">
+            <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+              <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
+                <DialogTitle className="font-bold">Delete product</DialogTitle>
+                <Description>This will delete the product from system</Description>
+                <p>Are you sure you want to delete the product?</p>
+                <div className="flex gap-4">
+                  <button onClick={() => handleDeleteProduct(productIdToDelete)}>Delete</button>
+                  <button onClick={() => setDeleteOpen(false)}>Cancel</button>
                 </div>
               </DialogPanel>
             </div>

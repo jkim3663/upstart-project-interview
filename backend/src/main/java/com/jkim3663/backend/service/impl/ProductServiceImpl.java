@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,6 +57,15 @@ public class ProductServiceImpl implements ProductService {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Override
+    public void deleteProductById(Integer id) {
+        Optional<ProductEntity> productEntityOptional = productRepository.findById(id);
+        if (productEntityOptional.isEmpty()) {
+            throw new IllegalArgumentException("Unknown ID to delete");
+        }
+        productRepository.delete(productEntityOptional.get());
     }
 
     private ProductEntity populateProductEntity(ProductRequestDTO productRequestDTO) {
